@@ -28,8 +28,6 @@ def compute_gradient(x, y, w, b, lamb=1):
     return b_integral, w_integrals
 
 def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, num_iters, lambda_): 
-    m = len(X)
-    
     J_history = []
     w_history = []
     
@@ -48,6 +46,10 @@ def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, 
         
     return w_in, b_in, J_history, w_history
 
+def predict(x, w, b):
+    f_wb = sigmoid(np.dot(x, w) + b)
+    return np.where(f_wb < 0.5, 0, 1)
+
 def main():
     x_train, y_train = load_data("data/ex2data1.txt")
 
@@ -62,6 +64,19 @@ def main():
 
     w,b, J_history,_ = gradient_descent(x_train ,y_train, intial_w, initial_b, 
                                     compute_cost, compute_gradient, alpha, iterations, 0)
+
+    plot_decision_boundary(w, b, x_train, y_train)
+
+    np.random.seed(1)
+    tmp_w = np.random.randn(2)
+    tmp_b = 0.3    
+    tmp_X = np.random.randn(4, 2) - 0.5
+
+    tmp_p = predict(tmp_X, tmp_w, tmp_b)
+    print(f'Output of predict: shape {tmp_p.shape}, value {tmp_p}')
+
+    p = predict(x_train, w,b)
+    print('Train Accuracy: %f'%(np.mean(p == y_train) * 100))
 
 if __name__ == '__main__':
     main()
