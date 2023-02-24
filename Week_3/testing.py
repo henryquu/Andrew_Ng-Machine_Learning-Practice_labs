@@ -1,6 +1,7 @@
 from logistic_regression import *
 from utils import *
 from public_tests import *
+from reg_log_regression import *
 
 def main():
     sigmoid_test(sigmoid)
@@ -8,5 +9,6 @@ def main():
     compute_gradient_test(compute_gradient)
     predict_test(predict)
 
+    compute_cost_reg_test(compute_cost_reg)
 if __name__ == '__main__':
     main()
