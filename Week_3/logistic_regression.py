@@ -15,15 +15,12 @@ def compute_cost(x, y, w, b, lamb=1):
 
 def compute_gradient(x, y, w, b, lamb=1):
     cases_count = y.shape[0]
-    feature_count = x.shape[1]
 
     func = sigmoid(np.dot(x, w) + b) - y
     b_integral = np.sum(func) / cases_count
 
-    w_integrals = np.zeros(w.shape)
-    for i in range(feature_count):
-        w_integrals[i] = (np.sum(np.dot(func, x[:, i])) / cases_count)
-    
+    w_integrals = np.dot(func, x) / cases_count
+
     return b_integral, w_integrals
 
 def gradient_descent(X, y, w_in, b_in, cost_function, gradient_function, alpha, num_iters, lambda_): 
