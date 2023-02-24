@@ -10,5 +10,7 @@ def main():
     predict_test(predict)
 
     compute_cost_reg_test(compute_cost_reg)
+    compute_gradient_reg_test(compute_gradient_reg)
+
 if __name__ == '__main__':
     main()
